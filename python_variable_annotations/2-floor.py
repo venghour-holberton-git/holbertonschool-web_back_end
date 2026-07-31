@@ -3,5 +3,9 @@
 """function module"""
 
 
+import math
 def floor(n: float) -> float:
-    return floor(n)
+    return math.floor(n)
+
+if __name__ == "__main__":
+    print(floor(3.223))
