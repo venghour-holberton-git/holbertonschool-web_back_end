@@ -3,12 +3,9 @@
 """function module"""
 
 
-from typing import List
+from typing import List, Union
 
 
-def sum_mixed_list(mxd_lst: List[int | float]) -> float:
+def sum_mixed_list(mxd_lst: List[Union[int, float]]) -> float:
     """return a float"""
-    res: float = 0.0
-    for n in mxd_lst:
-        res += n
-    return res
+    return sum(mxd_lst)
