@@ -2,8 +2,8 @@
 
 """function module"""
 
-from typing import Union, List, Tuple
+from typing import Sequence, List, Tuple, Iterable
 
 
-def element_length(lst: List[List[int]]) -> List[Tuple[List[int], int]]:
+def element_length(lst: Iterable[Sequence]) -> List[Tuple[Sequence, int]]:
     return [(i, len(i)) for i in lst]
