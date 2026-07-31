@@ -4,7 +4,7 @@
 
 
 import math
-def floor(n: float) -> float:
+def floor(n: float) -> int:
     return math.floor(n)
 
 if __name__ == "__main__":
