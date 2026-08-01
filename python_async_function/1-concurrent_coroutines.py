@@ -1,21 +1,18 @@
 #!/usr/bin/env python3
-
-"""function module"""
-
+"""Module containing the wait_n coroutine."""
 
 import asyncio
-import random
 from typing import List
-import asyncio
-wait_random = __import__('0-basic_async_syntax').wait_random
+
+wait_random = __import__("0-basic_async_syntax").wait_random
 
 
 async def wait_n(n: int, max_delay: int) -> List[float]:
-    """This function get n - number of coroutines and max delay"""
-    float_list: List[float] = []
-    for i in range(n):
-        float_list.append(await wait_random(max_delay))
-    return float_list
+    """Spawn wait_random n times and return the delays in ascending order."""
+    tasks = [asyncio.create_task(wait_random(max_delay)) for _ in range(n)]
 
-if __name__ == "__main__":
-    print(asyncio.run(wait_n(3, 5)))
+    delays: List[float] = []
+    for task in asyncio.as_completed(tasks):
+        delays.append(await task)
+
+    return delays
