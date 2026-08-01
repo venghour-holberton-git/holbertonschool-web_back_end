@@ -2,8 +2,6 @@
 """Module containing an asynchronous generator."""
 
 import asyncio
-import random
-from typing import AsyncGenerator, List
 import time
 async_comprehension = __import__('1-async_comprehension').async_comprehension
 
