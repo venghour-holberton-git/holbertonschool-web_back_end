@@ -11,7 +11,7 @@ wait_random = __import__('0-basic_async_syntax').wait_random
 
 
 async def wait_n(n: int, max_delay: int) -> List[float]:
-    """This function get n and max delay"""
+    """This function get n - number of coroutines and max delay"""
     float_list: List[float] = []
     for i in range(n):
         float_list.append(await wait_random(max_delay))
