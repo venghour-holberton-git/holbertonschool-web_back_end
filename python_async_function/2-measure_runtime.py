@@ -1,13 +1,19 @@
 #!/usr/bin/env python3
-"""Module containing the wait_n coroutine."""
+"""This module measures the avg runtime of wait_n."""
 
+import asyncio
 import time
 
-wait_n = __import__('1-concurrent_coroutines').wait_n
+wait_n = __import__("1-concurrent_coroutines").wait_n
 
 
-async def measure_time(n: int, max_delay: int) -> float:
-    """Measure the average execution time of wait_n."""
-    start: float = time.perf_counter()
-    await wait_n(n, max_delay)
-    return (time.perf_counter() - start) / n
+def measure_time(n: int, max_delay: int) -> float:
+    """Measures the avg execution time of wait_n."""
+
+    start = time.time()
+
+    asyncio.run(wait_n(n, max_delay))
+
+    end = time.time()
+
+    return (end - start) / n
