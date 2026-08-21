@@ -29,22 +29,26 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-            assert page > 0
-            assert page_size > 0
-            data = self.dataset()
-            selected_range = self.index_range(page, page_size)
-            return data[selected_range[0]: selected_range[1]]
+        """
+            Return a List of data from the start index to end index
+        """
+        assert page > 0
+        assert page_size > 0
+        data = self.dataset()
+        selected_range = self.index_range(page, page_size)
+        return data[selected_range[0]: selected_range[1]]
 
     def index_range(self, page, page_size):
         """
-            This function return a tuple of start index and end index
+            Return a tuple of start index and end index
         """
         start_index = (page - 1) * page_size
         end_index = page * page_size
 
         return (start_index, end_index)
 
+
 if __name__ == "__main__":
-     server = Server()
-     data = server.get_page(2, 5)
-     print(data)
+    server = Server()
+    data = server.get_page(2, 5)
+    print(data)
