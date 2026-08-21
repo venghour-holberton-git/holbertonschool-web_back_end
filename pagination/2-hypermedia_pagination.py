@@ -46,3 +46,9 @@ class Server:
         end_index = page * page_size
 
         return (start_index, end_index)
+
+
+if __name__ == "__main__":
+    server = Server()
+    data = server.get_page(2, 5)
+    print(data)
