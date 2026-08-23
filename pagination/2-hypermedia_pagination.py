@@ -1,25 +1,29 @@
 #!/usr/bin/env python3
-"""
-    This is a class module
-"""
-
+"""Module for hypermedia pagination."""
 
 import csv
 import math
-from typing import List, Union, Dict
+from typing import List, Tuple, Dict, Union
+
+
+def index_range(page: int, page_size: int) -> Tuple[int, int]:
+    """Return the start and end indexes for a pagination range."""
+    start = (page - 1) * page_size
+    end = page * page_size
+    return (start, end)
 
 
 class Server:
-    """Server class to paginate a database of popular baby names.
-    """
+    """Server class to paginate a database of popular baby names."""
+
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
+        """Initialize the server dataset cache."""
         self.__dataset = None
 
     def dataset(self) -> List[List]:
-        """Cached dataset
-        """
+        """Return the cached dataset."""
         if self.__dataset is None:
             with open(self.DATA_FILE) as f:
                 reader = csv.reader(f)
@@ -28,25 +32,17 @@ class Server:
 
         return self.__dataset
 
-    def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        """
-            Return a List of data from the start index to end index
-        """
+    def get_page(self, page: int = 1,
+                 page_size: int = 10) -> List[List]:
+        """Return the requested page of the dataset."""
         assert isinstance(page, int) and page > 0, "Must be int and > 0"
         assert isinstance(page_size, int) and page_size > 0, \
             "Must be int > 0"
-        data = self.dataset()
-        selected_range = self.index_range(page, page_size)
-        return data[selected_range[0]: selected_range[1]]
 
-    def index_range(self, page, page_size):
-        """
-            Return a tuple of start index and end index
-        """
-        start_index = (page - 1) * page_size
-        end_index = page * page_size
+        (start, end) = index_range(page, page_size)
 
-        return (start_index, end_index)
+        return self.dataset()[start:end]
+
     def get_hyper(
             self, page: int = 1, page_size: int = 10) -> Dict[
                 str, Union[int, List, None]]:
