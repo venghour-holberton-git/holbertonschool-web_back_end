@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
-"""
-    This is a class module
-"""
-
 
 import csv
 import math
 from typing import List
+
+
+def index_range(page, page_size):
+    """
+    Return a tuple of start index and end index.
+    """
+    start_index = (page - 1) * page_size
+    end_index = page * page_size
+
+    return (start_index, end_index)
 
 
 class Server:
@@ -29,20 +35,9 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        """
-            Return a List of data from the start index to end index
-        """
-        assert page > 0
-        assert page_size > 0
-        data = self.dataset()
-        selected_range = self.index_range(page, page_size)
-        return data[selected_range[0]: selected_range[1]]
+        assert isinstance(page, int) and page > 0
+        assert isinstance(page_size, int) and page_size > 0
 
-    def index_range(self, page, page_size):
-        """
-            Return a tuple of start index and end index
-        """
-        start_index = (page - 1) * page_size
-        end_index = page * page_size
+        start, end = index_range(page, page_size)
 
-        return (start_index, end_index)
+        return self.dataset()[start:end]
