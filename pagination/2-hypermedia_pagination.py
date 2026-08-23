@@ -43,6 +43,10 @@ class Server:
         """
             Return pagination information for a page
         """
+        assert isinstance(page, int) and page > 0, "Must be int and > 0"
+        assert isinstance(page_size, int) and page_size > 0, \
+            "Must be int > 0"
+
         data = self.get_page(page, page_size)
         total_pages = math.ceil(len(self.dataset()) / page_size)
 
